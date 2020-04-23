@@ -44,6 +44,11 @@ def compare(case, arguments=[]):
     if failed:
         sys.exit(1)
 
+
+compare("1904_1", ["--dateformat=%Y-%m-%d"])
+compare("1904_true", ["--dateformat=%Y-%m-%d"])
+compare("1904_false", ["--dateformat=%Y-%m-%d"])
+compare("1904_0", ["--dateformat=%Y-%m-%d"])
 compare("datetime", ["--dateformat=%Y-%m-%d %H:%M:%S"])
 compare("empty_row")
 compare("junk-small")
