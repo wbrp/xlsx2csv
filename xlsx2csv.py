@@ -388,17 +388,20 @@ class Workbook:
             except KeyError:
                 # no app name
                 self.appName = DEFAULT_APP_PATH
+
+        # Detect whether the spreadsheet uses the 1900 or 1904 date system.
+        # See https://docs.microsoft.com/en-us/office/troubleshoot/excel/1900-and-1904-date-system
         try:
             if workbookDoc.firstChild.namespaceURI:
                 self.date1904 = \
                     workbookDoc.firstChild.getElementsByTagNameNS(
                         workbookDoc.firstChild.namespaceURI, "workbookPr")[0]._attrs['date1904'].value.lower().strip() \
-                    != "false"
+                    in ("true", "1")
             else:
                 self.date1904 = \
                     workbookDoc.firstChild.getElementsByTagName("workbookPr")[0] \
                         ._attrs['date1904'].value.lower().strip() \
-                    != "false"
+                    in ("true", "1")
         except:
             pass
 
